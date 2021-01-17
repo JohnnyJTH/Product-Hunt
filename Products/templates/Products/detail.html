@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    p {
+        line-height: 1.5;
+        margin: 30px 0;
+        font-size: 30px;
+        color: #212529
+    }
+
+    p a {
+        text-decoration: underline
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 800;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+    }
+
+    a {
+        color: #212529;
+        transition: all .2s
+    }
+
+    a:focus, a:hover {
+        color: #0085a1
+    }
+
+    blockquote {
+        font-style: italic;
+        color: #868e96
+    }
+
+    .section-heading {
+        font-size: 36px;
+        font-weight: 700;
+        margin-top: 60px
+    }
+
+    .caption {
+        font-size: 14px;
+        font-style: italic;
+        display: block;
+        margin: 0;
+        padding: 10px;
+        text-align: center;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px
+    }
+
+    ::-moz-selection {
+        color: #fff;
+        background: #0085a1;
+        text-shadow: none
+    }
+
+    ::selection {
+        color: #fff;
+        background: #0085a1;
+        text-shadow: none
+    }
+
+    img::-moz-selection {
+        color: #fff;
+        background: 0 0
+    }
+
+    img::selection {
+        color: #fff;
+        background: 0 0
+    }
+
+    img::-moz-selection {
+        color: #fff;
+        background: 0 0
+    }
+
+    header.masthead {
+        margin-bottom: 50px;
+        background: no-repeat center center;
+        background-color: #868e96;
+        background-attachment: scroll;
+        position: relative;
+        background-size: cover
+    }
+
+    header.masthead .page-heading, header.masthead .post-heading, header.masthead .site-heading {
+        padding: 200px 0 150px;
+        color: #fff
+    }
+
+    @media only screen and (min-width:768px) {
+        header.masthead .page-heading, header.masthead .post-heading, header.masthead .site-heading {
+            padding: 200px 0
+        }
+    }
+
+    header.masthead .page-heading, header.masthead .site-heading {
+        text-align: center
+    }
+
+    header.masthead .page-heading h1, header.masthead .site-heading h1 {
+        font-size: 50px;
+        margin-top: 0
+    }
+
+    header.masthead .page-heading .subheading, header.masthead .site-heading .subheading {
+        font-size: 24px;
+        font-weight: 300;
+        line-height: 1.1;
+        display: block;
+        margin: 10px 0 0;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+    }
+
+    @media only screen and (min-width:768px) {
+        header.masthead .page-heading h1, header.masthead .site-heading h1 {
+            font-size: 80px
+        }
+    }
+
+    header.masthead .post-heading h1 {
+        font-size: 35px
+    }
+
+    header.masthead .post-heading .meta, header.masthead .post-heading .subheading {
+        line-height: 1.1;
+        display: block
+    }
+
+    header.masthead .post-heading .subheading {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 10px 0 30px;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif
+    }
+
+    header.masthead .post-heading .meta {
+        font-size: 20px;
+        font-weight: 300
+    }
+
+    header.masthead .post-heading .meta a {
+        color: #fff
+    }
+
+    @media only screen and (min-width:768px) {
+        header.masthead .post-heading h1 {
+            font-size: 55px
+        }
+        header.masthead .post-heading .subheading {
+            font-size: 30px
+        }
+    }
+
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+</style>
+
+<main>
+    <header class="masthead" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0, 0, 0, 0.4)), url('{{ product.image.url }}')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="post-heading">
+                        <h1>{{ product.title }}</h1>
+                        <h2 class="subheading">{{ product.desc }}</h2>
+                        <span class="meta">Posted by {{ product.hunter.username }} on {{ product.date }}</span>
+                        <br />
+                        <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary"><span class="oi oi-caret-top"></span> Upvote {{ product.votes }}</button></a>
+                        <a href=""><button class="btn btn-primary">Get it</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <br />
+    <br />
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <p class="blog">{{ product.body }}</p>
+                </div>
+            </div>
+        </div>
+    </article>
+</main>
+
+<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
+    {% csrf_token %}
+    <input type="hidden">
+</form>
+
+{% endblock %}

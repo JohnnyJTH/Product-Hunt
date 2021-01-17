@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ error }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<br />
+<br />
+{% endif %}
+
+<h1>Create</h1>
+
+<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="TitleForm" class="form-label">Title</label>
+        <input type="text" class="form-control" id="TitleForm" name="title" placeholder="Enter your items name here">
+    </div>
+    <div class="mb-3">
+        <label for="DescForm" class="form-label">Description</label>
+        <input type="text" class="form-control" id="DescForm" name="desc" placeholder="Enter your items short description here">
+    </div>
+    <div class="mb-3">
+        <label for="BodyForm" class="form-label">Body</label>
+        <input type="textbox" class="form-control" id="BodyForm" name="body" placeholder="Enter your items description here">
+    </div>
+    <div class="mb-3">
+        <label for="URLForm" class="form-label">URL</label>
+        <input type="text" class="form-control" id="URLForm" name="url" placeholder="Enter your desired URL here">
+    </div>
+    <div class="mb-3">
+        <label for="IconForm" class="form-label">Icon</label>
+        <input type="file" class="form-control" id="IconForm" name="icon">
+    </div>
+    <div class="mb-3">
+        <label for="ImageForm" class="form-label">Image</label>
+        <input type="file" class="form-control" id="ImageForm" name="image">
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Add Product" />
+
+</form>
+
+{% endblock %}

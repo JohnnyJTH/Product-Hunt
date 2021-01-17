@@ -1,7 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% for product in products.all %}
 
-Home!
+<br />
+<div class="row g-0">
+    <div class="col-md-4">
+        <img class="img-fluid" src="{{ product.icon.url }}">
+    </div>
+    <div class="col-md-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ product.title }}</h5>
+            <p class="card-text">{{ product.desc }}</p>
+            <p class="card-text"><small class="text-muted">Hunted by {{ product.hunter.username }} on {{ product.date }}</small></p>
+            <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button class="btn btn-primary"><span class="oi oi-caret-top"></span> Upvote {{ product.votes }}</button></a>
+            <a href=""><button class="btn btn-primary">Details</button></a>
+        </div>
+    </div>
+</div>
+<br />
+
+<form id="upvote{{ product.id }}" method="POST" action="{% url 'upvote' product.id %}">
+    {% csrf_token %}
+    <input type="hidden">
+</form>
+
+{% endfor %}
 
 {% endblock %}
